@@ -2,6 +2,7 @@
   <dictionary name="arcaartem">
     <words>
       <w>textview</w>
+      <w>zipcode</w>
     </words>
   </dictionary>
 </component>
