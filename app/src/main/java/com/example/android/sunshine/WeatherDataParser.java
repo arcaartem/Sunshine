@@ -10,6 +10,13 @@ import java.text.SimpleDateFormat;
 
 public class WeatherDataParser {
 
+    private final TemperatureUnit mUnit;
+
+    public enum TemperatureUnit { IMPERIAL, METRIC }
+
+    public WeatherDataParser(TemperatureUnit unit) {
+        mUnit = unit;
+    }
 
     /* The date/time conversion code is going to be moved outside the asynctask later,
      * so for convenience we're breaking it out into its own method now.
@@ -25,12 +32,15 @@ public class WeatherDataParser {
      * Prepare the weather high/lows for presentation.
      */
     private String formatHighLows(double high, double low) {
+        if (mUnit == TemperatureUnit.IMPERIAL) {
+            high = (high * 1.8) + 32;
+            low = (low * 1.8) + 32;
+        }
         // For presentation, assume the user doesn't care about tenths of a degree.
         long roundedHigh = Math.round(high);
         long roundedLow = Math.round(low);
 
-        String highLowStr = roundedHigh + "/" + roundedLow;
-        return highLowStr;
+        return roundedHigh + "/" + roundedLow;
     }
 
     /**
