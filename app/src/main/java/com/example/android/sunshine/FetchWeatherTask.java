@@ -42,7 +42,6 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
         int numDays = 7;
         String zipcode = params[0];
         String urlString = buildUrl(zipcode, numDays);
-        Log.v(LOG_TAG, urlString);
 
         // These two need to be declared outside the try/catch
         // so that they can be closed in the finally block.
@@ -85,12 +84,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
                 return null;
             }
             forecastJsonStr = buffer.toString();
-            Log.v(LOG_TAG, forecastJsonStr);
             String[] result = mParser.getWeatherDataFromJson(forecastJsonStr);
-
-            for (String s : result) {
-                Log.v(LOG_TAG, "Forecast entry: " + s);
-            }
 
             return result;
         } catch (IOException e) {
